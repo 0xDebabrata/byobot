@@ -12,12 +12,8 @@ import type { SupabaseClient } from '@supabase/auth-helpers-nextjs';
 import Footer from '@/components/ui/Footer/Footer';
 import ProfileService from '@/utils/supabase/services/profile';
 import Banner from '@/components/ui/Banner';
-import ProgressBarClient from '@/components/ui/ProgressBarClient';
+// import ProgressBarClient from '@/components/ui/ProgressBarClient';
 import ModalBannerCodeClient from '@/components/ui/ModalBannerCode/ModalBannerCodeClient';
-
-import dynamic from 'next/dynamic';
-
-const ChatWindow = dynamic(() => import('@/components/ui/ChatWindow'), { ssr: false });
 
 export type TypedSupabaseClient = SupabaseClient<Database>;
 
@@ -28,7 +24,7 @@ declare global {
 }
 
 const { title, description, ogImage } = {
-  title: 'Dev Hunt – The best new Dev Tools every day.',
+  title: 'Bring your own bot',
   description: 'A launchpad for dev tools, built by developers for developers, open source, and fair.',
   ogImage: 'https://devhunt.org/devhuntog.png?v=2',
 };
@@ -110,7 +106,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body className={inter.className}>
         <main>
-          <ChatWindow />
           <SupabaseProvider user={profile as Profile} session={session}>
             <SupabaseListener serverAccessToken={session?.access_token} />
             <Banner />
