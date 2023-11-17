@@ -75,6 +75,15 @@ export default function Home() {
 
   return (
     <section className="max-w-4xl mt-5 lg:mt-10 mx-auto px-4 md:px-8">
+      <h1 className='text-2xl text-slate-900 font-medium'>
+        Trending GPTs
+      </h1>
+    </section>
+  );
+
+  /*
+  return (
+    <section className="max-w-4xl mt-5 lg:mt-10 mx-auto px-4 md:px-8">
       <CountdownPanel />
       {isLoading ? (
         <div className="mt-14">
@@ -98,4 +107,5 @@ export default function Home() {
       )}
     </section>
   );
+  */
 }

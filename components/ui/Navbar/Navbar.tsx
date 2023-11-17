@@ -43,7 +43,7 @@ export default () => {
   };
 
   const navigation = [
-    { title: 'The Story', path: '/the-story' },
+//    { title: 'The Story', path: '/the-story' },
     {
       title: 'Submit your Dev Tool',
       path: isLoggedin ? '/account/tools' : '/login',
@@ -52,8 +52,8 @@ export default () => {
   ];
 
   const submenu = [
-    { title: 'This Week', path: '/' },
-    { title: 'Upcoming Tools', path: '/upcoming' },
+ //   { title: 'This Week', path: '/' },
+ //   { title: 'Upcoming Tools', path: '/upcoming' },
   ];
 
   const handleSearch = (value: string) => {
@@ -69,11 +69,13 @@ export default () => {
 
   return (
     <>
-      <nav className="sticky top-0 z-30 bg-slate-900 border-b border-slate-800 w-full">
+      <nav className="sticky top-0 z-30 bg-white border-b border-slate-800 w-full">
         <div className="custom-screen items-center py-3 md:flex">
           <div className="flex items-center justify-between md:block">
             <Link href="/">
-              <Brand />
+              <h1 className='text-xl'>
+                byo<span className='font-semibold'>bot</span>
+              </h1>
             </Link>
             <div className="flex gap-x-4 items-center md:hidden">
               <button aria-label="Search button" onClick={() => setCommandActive(true)} className="text-slate-400 hover:text-slate-200">
@@ -88,7 +90,7 @@ export default () => {
           <div className={`flex-1 md:static  ${isActive ? 'w-full fixed top-20 inset-x-0 px-4 md:px-0' : 'hidden md:block'}`}>
             <div className="p-4 px-4 mt-8 text-sm bg-slate-900 rounded-lg md:block md:mt-0 md:p-0 md:bg-transparent">
               <ul className="justify-end items-center space-y-6 text-slate-400 md:flex md:space-x-6 md:space-y-0">
-                <li>
+                {/* <li>
                   <NavigationMenu.Root>
                     <NavigationMenu.List className="">
                       <NavigationMenu.Item>
@@ -126,7 +128,7 @@ export default () => {
                       </NavigationMenu.Item>
                     </NavigationMenu.List>
                   </NavigationMenu.Root>
-                </li>
+                </li> */}
                 {navigation.map((item, idx) => {
                   return (
                     <li key={idx} className="hover:text-slate-200">

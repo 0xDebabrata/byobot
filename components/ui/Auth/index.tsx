@@ -15,7 +15,7 @@ import { useRouter } from 'next/navigation';
 import sendWelcomeEmail from '@/utils/sendWelcomeEmail';
 // Supabase auth needs to be triggered client-side
 
-export default function Auth({ onLogout }: { onLogout?: () => void }) {
+export default function Auth({ onLogout }: { onLogout?: () => Promise<void> }) {
   const { supabase, session, user } = useSupabase();
   const [isGoogleAuthLoad, setGoogleAuthLoad] = useState<boolean>(false);
   const [isGithubAuthLoad, setGithubAuthLoad] = useState<boolean>(false);

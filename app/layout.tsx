@@ -2,7 +2,7 @@ import Navbar from '@/components/ui/Navbar';
 import './globals.css';
 import './prismjs-theme.css';
 import { Inter } from 'next/font/google';
-import Script from 'next/script';
+// import Script from 'next/script';
 
 import SupabaseListener from '@/components/supabase/listener';
 import SupabaseProvider from '@/components/supabase/provider';
@@ -62,9 +62,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const profile = user ? await profileService.getById(user?.id) : null;
 
   return (
-    <html lang="en" className="bg-slate-900">
+    <html lang="en" className="bg-neutral-100">
       <head>
-        {process.env.USER_MAVEN_KEY && (
+        {/* process.env.USER_MAVEN_KEY && (
           <>
             <Script
               strategy="afterInteractive"
@@ -97,7 +97,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               }}
             />
           </>
-        )}
+        ) */}
         <meta httpEquiv="Content-Language" content="en" />
         <meta property="og:locale" content="en_US" />
         <meta name="language" content="English" />
