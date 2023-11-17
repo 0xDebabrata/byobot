@@ -19,12 +19,8 @@ export default function Home() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const week = await productService.getWeekNumber(today, 2);
-      const [launchWeeks, weeklyWinners] = await Promise.all([
-        productService.getPrevLaunchWeeks(today.getFullYear(), 2, week, 1),
-        productService.getWeeklyWinners(week),
-      ]);
-      setLaunchWeeks(launchWeeks as any);
+      // const week = await productService.getWeekNumber(today, 2);
+      const weeklyWinners = await productService.getThisWeeksGPTs()
       setWeeklyWinners(weeklyWinners as any);
       setLoading(false);
     };
@@ -63,7 +59,9 @@ export default function Home() {
   function weekWinnerTools(products) {
     return (
       <>
-        <div className="mt-3 text-white text-sm">Previous weeks winners 👑</div>
+        <h2 className='text-base text-slate-900 font-medium'>
+          This week's GPTs
+        </h2>
         <ul className="mt-3 divide-y divide-slate-800/60">
           {products.map((product, idx) => (
             <ToolCardEffect key={idx} tool={product as ProductType} />
@@ -78,9 +76,9 @@ export default function Home() {
       <h1 className='text-2xl text-slate-900 font-medium'>
         Trending GPTs
       </h1>
-      <h1 className='text-base text-slate-900 font-medium'>
-        This week's GPTs
-      </h1>
+      <div className="mt-10 mb-12">
+        {weekWinnerTools(weeklyWinners)}
+      </div>
     </section>
   );
 

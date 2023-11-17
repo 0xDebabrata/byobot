@@ -23,6 +23,12 @@ export default class ProductsService extends BaseDbService {
     });
   }
 
+  async getThisWeeksGPTs() {
+    const { data, error } = await this.supabase.rpc('get_this_weeks_gpts');
+    if (error !== null) throw new Error(error.message);
+    return data;
+  }
+
   async getWeeks(year: number, startDay: number) {
     const { data, error } = await this.supabase.rpc('get_weeks', {
       year_in: year,

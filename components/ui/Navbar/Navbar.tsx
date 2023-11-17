@@ -128,7 +128,7 @@ export default () => {
                       </NavigationMenu.Item>
                     </NavigationMenu.List>
                   </NavigationMenu.Root>
-                </li> */}
+                </li>
                 {navigation.map((item, idx) => {
                   return (
                     <li key={idx} className="hover:text-slate-200">
@@ -143,7 +143,7 @@ export default () => {
                     <IconSearch />
                   </button>
                 </li>
-                <li className="hidden w-px h-6 bg-slate-700 md:block"></li>
+                <li className="hidden w-px h-6 bg-slate-700 md:block"></li> */}
                 <li className={`space-y-3 items-center gap-x-6 md:flex md:space-y-0 ${isLoggedin ? 'hidden md:flex' : ''}`}>
                   <Auth onLogout={handleLogout} />
                 </li>
