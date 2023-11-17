@@ -1,7 +1,7 @@
 'use client';
 
 import { useSupabase } from '@/components/supabase/provider';
-import Brand from '@/components/ui/Brand';
+// import Brand from '@/components/ui/Brand';
 import { useState } from 'react';
 import { GithubProvider, GoogleProvider } from '../AuthProviderButtons';
 
@@ -33,7 +33,6 @@ export default () => {
   };
 
   const handleGithubLogin = async () => {
-    console.log('Redirect URL', getURL());
     setGithubAuthLoad(true);
     await supabase.auth.signInWithOAuth({
       provider: 'github',

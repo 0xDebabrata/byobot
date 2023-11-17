@@ -78,6 +78,9 @@ export default function Home() {
       <h1 className='text-2xl text-slate-900 font-medium'>
         Trending GPTs
       </h1>
+      <h1 className='text-base text-slate-900 font-medium'>
+        This week's GPTs
+      </h1>
     </section>
   );
 

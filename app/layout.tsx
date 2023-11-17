@@ -113,7 +113,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <ModalBannerCodeClient />
             {children}
             {/* <ProgressBarClient /> */}
-            <Footer />
+            {/* <Footer /> */}
           </SupabaseProvider>
         </main>
       </body>
