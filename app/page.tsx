@@ -2,13 +2,13 @@
 
 import ProductsService from '@/utils/supabase/services/products';
 import ToolCardEffect from '@/components/ui/ToolCardEffect/ToolCardEffect';
-import { ProductType } from '@/type';
+import { type ProductType } from '@/type';
 // import { shuffleToolsBasedOnDate } from '@/utils/helpers';
 import { createBrowserClient } from '@/utils/supabase/browser';
-import CountdownPanel from '@/components/ui/CountdownPanel';
+// import CountdownPanel from '@/components/ui/CountdownPanel';
 
 import { useEffect, useState } from 'react';
-import SkeletonToolCard from '@/components/ui/Skeletons/SkeletonToolCard';
+// import SkeletonToolCard from '@/components/ui/Skeletons/SkeletonToolCard';
 
 export default function Home() {
   const today = new Date();
@@ -20,7 +20,7 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       // const week = await productService.getWeekNumber(today, 2);
-      const weeklyWinners = await productService.getThisWeeksGPTs()
+      const weeklyWinners = await productService.getThisWeeksGPTs();
       setWeeklyWinners(weeklyWinners as any);
       setLoading(false);
     };
