@@ -11,7 +11,7 @@ import { GithubProvider, GoogleProvider } from '../AuthProviderButtons';
 import ProfileService from '@/utils/supabase/services/profile';
 import { createBrowserClient } from '@/utils/supabase/browser';
 import { useRouter } from 'next/navigation';
-import sendWelcomeEmail from '@/utils/sendWelcomeEmail';
+import { getURL } from '@/components/ui/LoginPage';
 // Supabase auth needs to be triggered client-side
 
 export default function Auth({ onLogout }: { onLogout?: () => Promise<void> }) {
@@ -26,7 +26,12 @@ export default function Auth({ onLogout }: { onLogout?: () => Promise<void> }) {
 
   const handleGoogleLogin = async () => {
     setGoogleAuthLoad(true);
-    const { error } = await supabase.auth.signInWithOAuth({ provider: 'google' });
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: getURL()
+      }
+    });
     if (error != null) {
       console.log({ error });
     }
@@ -36,7 +41,12 @@ export default function Auth({ onLogout }: { onLogout?: () => Promise<void> }) {
 
   const handleGitHubLogin = async () => {
     setGithubAuthLoad(true);
-    const { error } = await supabase.auth.signInWithOAuth({ provider: 'github' });
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'github',
+      options: {
+        redirectTo: getURL()
+      }
+    });
 
     if (error != null) {
       console.log({ error });
