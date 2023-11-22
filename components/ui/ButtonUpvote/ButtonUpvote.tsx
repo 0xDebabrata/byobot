@@ -37,18 +37,11 @@ export default ({ count, productId, className = '', launchDate = '', launchEnd =
 
   const toggleVote = async () => {
     if (session && session.user) {
-      setMoadlInfo(
-        new Date(launchEnd).getTime() >= Date.now()
-          ? { title: 'Not Launched Yet!', desc: `Oops, this tool hasn't launched yet! Check back on ${customDateFromNow(launchDate)}.` }
-          : { title: 'This tool week is ends', desc: `Oops, you missed this tool week, it was launched ${customDateFromNow(launchDate)}.` },
-      );
-      if (isLaunchStarted && new Date(launchEnd).getTime() >= Date.now()) {
-        const newVotesCount = await productsService.toggleVote(productId as number, session.user.id);
-        router.refresh();
-        setUpvoted(!isUpvoted);
-        voteCountEffect();
-        setTimeout(() => setVotesCount(newVotesCount), 50);
-      } else setModalActive(true);
+      const newVotesCount = await productsService.toggleVote(productId as number, session.user.id);
+      router.refresh();
+      setUpvoted(!isUpvoted);
+      voteCountEffect();
+      setTimeout(() => setVotesCount(newVotesCount), 50);
     } else router.push('/login');
   };
 

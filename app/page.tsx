@@ -62,7 +62,7 @@ export default function Home() {
         <h2 className='text-base text-slate-900 font-medium'>
           This week's GPTs
         </h2>
-        <ul className="mt-3 divide-y divide-slate-800/60">
+        <ul className="mt-3">
           {products.map((product, idx) => (
             <ToolCardEffect key={idx} tool={product as ProductType} />
           ))}

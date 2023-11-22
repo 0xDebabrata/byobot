@@ -10,7 +10,7 @@ import ToolFooter from '@/components/ui/ToolCard/Tool.Footer';
 import ToolViews from '@/components/ui/ToolCard/Tool.views';
 import { type ProductType } from '@/type';
 import { useInView } from 'framer-motion';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { createBrowserClient } from '@/utils/supabase/browser';
 import ProductsService from '@/utils/supabase/services/products';
 import Link from 'next/link';

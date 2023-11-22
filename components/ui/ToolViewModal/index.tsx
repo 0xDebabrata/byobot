@@ -69,6 +69,7 @@ export default ({ href, tool, close }: { href: string; tool: ProductType; close:
       name: 'Comments',
       sectionId: 'comments',
     },
+    /*
     {
       name: 'Launch details',
       sectionId: 'details',
@@ -77,6 +78,7 @@ export default ({ href, tool, close }: { href: string; tool: ProductType; close:
       name: 'Related launches',
       sectionId: 'launches',
     },
+    */
   ];
 
   const stats = [
@@ -110,13 +112,13 @@ export default ({ href, tool, close }: { href: string; tool: ProductType; close:
         onCancel={close}
         variant="custom"
         classNameContainer="px-0 py-0 sm:py-8"
-        className="max-w-4xl bg-slate-900 px-0 py-8 view-modal"
+        className="max-w-4xl bg-white px-0 py-8 view-modal"
       >
         <div>
           <div className="container-custom-screen pt-4 pb-10">
             <button
               onClick={() => router.back()}
-              className="flex items-center gap-x-2 py-2 px-4 text-slate-50 border border-slate-700 rounded-lg hover:bg-slate-800 duration-150"
+              className="flex items-center gap-x-2 py-2 px-4 text-slate-500 border border-slate-700 rounded hover:bg-slate-800 duration-150"
             >
               <IconArrowLongLeft />
               Go back
@@ -127,7 +129,7 @@ export default ({ href, tool, close }: { href: string; tool: ProductType; close:
               <ProductLogo src={tool?.logo_url} alt={tool?.slogan as string} />
               <WinnerBadge weekRank={weekRank} isLaunchEnd={isLaunchEnd} />
             </div>
-            <h1 className="mt-3 text-slate-100 font-medium">{tool?.name}</h1>
+            <h1 className="mt-3 text-slate-800 font-medium">{tool?.name}</h1>
             <Title className="mt-1">{tool?.slogan}</Title>
             <div className="text-sm mt-3 flex items-center gap-x-3">
               <LinkShiny
@@ -147,7 +149,7 @@ export default ({ href, tool, close }: { href: string; tool: ProductType; close:
             </div>
           </div>
         </div>
-        <Tabs ulClassName="container-custom-screen" className="mt-20 sticky pt-2 top-0 z-10 bg-slate-900">
+        <Tabs ulClassName="container-custom-screen" className="mt-20 sticky pt-2 top-0 z-10 bg-neutral-100">
           {tabs.map((item, idx) => (
             <TabLink variant="nonlink" sectionId={item.sectionId} key={idx}>
               {item.name}
@@ -217,10 +219,12 @@ export default ({ href, tool, close }: { href: string; tool: ProductType; close:
               </div>
             ) : null}
           </div>
+          {/*
           <div className="container-custom-screen" id="launches">
             <h3 className="text-slate-50 font-medium">Trending launches</h3>
             <TrendingToolsList />
           </div>
+          */}
         </div>
       </Modal>
     </>

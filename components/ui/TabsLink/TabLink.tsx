@@ -21,7 +21,7 @@ export default ({ children, hash, href, sectionId, className = '', linkClassName
   const [selectedSection, setSelectedSection] = useState('');
   const pathname = usePathname();
 
-  const customClassName = `inline-block rounded-full py-2 px-3 target:bg-slate-800 hover:bg-slate-800 duration-150 ${linkClassName}`;
+  const customClassName = `inline-block rounded-full py-2 px-3 target:bg-slate-600 hover:text-white hover:bg-slate-600 duration-150 ${linkClassName}`;
 
   const handlehashUpdate = () => {
     const currentHash = window.location.hash;

@@ -124,7 +124,7 @@ export default () => {
   const validateImages = () => {
     setImageError('');
     setLogoError('');
-    if (imageFiles.length == 0) setImageError('Please choose some screenshots');
+    if (imageFiles.length === 0) setImageError('Please choose some screenshots');
     else if (!logoFile) setLogoError('Please choose product logo');
     else return true;
   };
@@ -138,6 +138,7 @@ export default () => {
   };
 
   const onSubmit: SubmitHandler<Inputs> = async data => {
+    console.log("Submitting");
     if (validateImages() && (await validateToolName())) {
       const { tool_name, tool_website, tool_description, slogan, pricing_type, github_repo, demo_video, week } = data;
       const categoryIds = categories.map(item => item.id);
@@ -153,7 +154,7 @@ export default () => {
             github_url: github_repo,
             pricing_type,
             slogan,
-            description: tool_description,
+            description: slogan,
             logo_url: logoPreview,
             owner_id: user?.id,
             slug: createSlug(tool_name),
@@ -169,10 +170,6 @@ export default () => {
           categoryIds,
         )
         .then(async res => {
-          const DISCORD_TOOL_WEBHOOK = process.env.DISCOR_TOOL_WEBHOOK as string;
-          const toolURL = `https://devhunt.org/tool/${res?.slug}`;
-          const content = `**${res?.name}** by ${profile?.full_name} [open the tool](${toolURL})`;
-          DISCORD_TOOL_WEBHOOK ? await axios.post(DISCORD_TOOL_WEBHOOK, { content }) : '';
           setLaunching(false);
           localStorage.setItem(
             'last-tool',
@@ -182,60 +179,59 @@ export default () => {
               launchEnd: res?.launch_end,
             }),
           );
-          window.open(`/tool/${res?.slug}?banner=true`);
-          router.push('/account/tools');
+          // window.open(`/tool/${res?.slug}?banner=true`);
+          router.push('/');
         });
     }
   };
 
   return (
     <section className="container-custom-screen">
-      <Alert context="Any non-dev tools will be subject to removal. Please ensure that your submission is relevant to the developer community." />
-      <h1 className="text-xl text-slate-50 font-semibold mt-6">Launch a tool</h1>
+      {/* <Alert context="Any non-dev tools will be subject to removal. Please ensure that your submission is relevant to the developer community." /> */}
+      <h1 className="text-xl text-slate-800 font-semibold mt-6">Submit a GPT</h1>
       <div className="mt-12">
         <FormLaunchWrapper onSubmit={handleSubmit(onSubmit as () => void)}>
           <FormLaunchSection
-            number={1}
-            title="Tell us about your tool"
-            description="Share basic info to help fellow devs get the gist of your awesome creation."
+            title="Tell us about your GPT"
+            description=""
           >
             <div>
               <LogoUploader isLoad={isLogoLoad} required src={logoPreview} onChange={handleUploadLogo} />
               <LabelError className="mt-2">{logoError}</LabelError>
             </div>
             <div>
-              <Label>Tool name</Label>
+              <Label>Name</Label>
               <Input
-                placeholder="My Awesome Dev Tool"
+                placeholder="ChatGPT"
                 className="w-full mt-2"
                 validate={{ ...register('tool_name', { required: true, minLength: 3 }) }}
               />
-              <LabelError className="mt-2">{errors.tool_name && 'Please enter your tool name'}</LabelError>
+              <LabelError className="mt-2">{errors.tool_name && 'Please enter a name.'}</LabelError>
             </div>
             <div>
-              <Label>Catchy slogan 😎</Label>
+              <Label>Description</Label>
               <Input
-                placeholder="Supercharge Your Development Workflow!"
+                placeholder="Ask questions. Get help. 10x your productivity."
                 className="w-full mt-2"
                 validate={{ ...register('slogan', { required: true, minLength: 10 }) }}
               />
-              <LabelError className="mt-2">{errors.slogan && 'Please enter your tool slogan'}</LabelError>
+              <LabelError className="mt-2">{errors.slogan && 'Please enter a description.'}</LabelError>
             </div>
             <div>
-              <Label>Tool website URL</Label>
+              <Label>URL</Label>
               <Input
-                placeholder="https://myawesomedevtool.com/"
+                placeholder="https://example.com/"
                 className="w-full mt-2"
                 validate={{
                   ...register('tool_website', { required: true, pattern: /^(https?:\/\/)?([a-z0-9-]+\.)+[a-z]{2,}(\/.*)*$/i }),
                 }}
               />
-              <LabelError className="mt-2">{errors.tool_website && 'Please enter your tool website URL'}</LabelError>
+              <LabelError className="mt-2">{errors.tool_website && 'Please enter a URL'}</LabelError>
             </div>
             <div>
               <Label>GitHub repo URL (optional)</Label>
               <Input
-                placeholder="https://github.com/username/myawesomedevtool"
+                placeholder="https://github.com/openai/gpt"
                 className="w-full mt-2"
                 validate={{
                   ...register('github_repo', { required: false, pattern: /^(https?:\/\/)?([a-z0-9-]+\.)+[a-z]{2,}(\/.*)*$/i }),
@@ -243,6 +239,10 @@ export default () => {
               />
               <LabelError className="mt-2">{errors.github_repo && 'Please enter a valid github repo url'}</LabelError>
             </div>
+            <Button type="submit" isLoad={isLaunching} className="w-full hover:bg-orange-400 ring-offset-2 ring-orange-500 focus:ring">
+              Submit
+            </Button>
+            {/*
             <div>
               <Label>Quick Description (max 300 characters)</Label>
               <Textarea
@@ -254,7 +254,9 @@ export default () => {
               />
               <LabelError className="mt-2">{errors.tool_description && 'Please enter your tool description'}</LabelError>
             </div>
+            */}
           </FormLaunchSection>
+          {/*
           <FormLaunchSection
             number={2}
             title="Extra Stuff"
@@ -317,9 +319,7 @@ export default () => {
               <LabelError className="mt-2">{imagesError}</LabelError>
             </div>
           </FormLaunchSection>
-
           <FormLaunchSection
-            number={4}
             title="Launch Week for Your Dev Tool"
             description="Setting the perfect launch week is essential to make a splash in the dev world."
           >
@@ -348,12 +348,11 @@ export default () => {
               </div>
             </div>
             <div className="pt-7">
-              <Button type="submit" isLoad={isLaunching} className="w-full hover:bg-orange-400 ring-offset-2 ring-orange-500 focus:ring">
-                Schedule my Dev Tool for Launch
-              </Button>
               <p className="text-sm text-slate-500 mt-2">* no worries, you can change it later</p>
             </div>
           </FormLaunchSection>
+          */}
+
         </FormLaunchWrapper>
       </div>
     </section>
