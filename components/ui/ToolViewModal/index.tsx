@@ -193,6 +193,7 @@ export default ({ href, tool, close }: { href: string; tool: ProductType; close:
           </div>
           <CommentSection productId={tool?.owner_id as string} comments={comments as any} slug={tool?.slug} />
           {/* Keep doing based on Product interface */}
+          {/*
           <div className="container-custom-screen" id="details">
             <h3 className="text-slate-50 font-medium">About this launch</h3>
             <p className="text-slate-300 mt-6">
@@ -219,6 +220,7 @@ export default ({ href, tool, close }: { href: string; tool: ProductType; close:
               </div>
             ) : null}
           </div>
+          */}
           {/*
           <div className="container-custom-screen" id="launches">
             <h3 className="text-slate-50 font-medium">Trending launches</h3>
