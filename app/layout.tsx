@@ -25,14 +25,15 @@ declare global {
 
 const { title, description, ogImage } = {
   title: 'Bring your own bot',
-  description: 'A launchpad for dev tools, built by developers for developers, open source, and fair.',
-  ogImage: 'https://devhunt.org/devhuntog.png?v=2',
+  description: 'A launchpad for sharing and discovering GPTs and other tools.',
+  // ogImage: 'https://devhunt.org/devhuntog.png?v=2',
 };
 
 export const metadata = {
   title,
   description,
-  metadataBase: new URL('https://devhunt.org'),
+  metadataBase: new URL('https://byobot.ai'),
+  /*
   openGraph: {
     title,
     description,
@@ -45,6 +46,7 @@ export const metadata = {
     description,
     images: [ogImage],
   },
+  */
 };
 
 const inter = Inter({ subsets: ['latin'] });
