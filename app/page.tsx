@@ -59,7 +59,7 @@ export default function Home() {
   function weekWinnerTools(products) {
     return (
       <>
-        <h2 className='text-base text-slate-900 font-medium'>
+        <h2 className='text-2xl text-slate-900 font-medium'>
           This week's GPTs
         </h2>
         <ul className="mt-3">
@@ -73,9 +73,9 @@ export default function Home() {
 
   return (
     <section className="max-w-4xl mt-5 lg:mt-10 mx-auto px-4 md:px-8">
-      <h1 className='text-2xl text-slate-900 font-medium'>
+      {/* <h1 className='text-2xl text-slate-900 font-medium'>
         Trending GPTs
-      </h1>
+      </h1> */}
       <div className="mt-10 mb-12">
         {weekWinnerTools(weeklyWinners)}
       </div>

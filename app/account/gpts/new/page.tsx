@@ -124,8 +124,8 @@ export default () => {
   const validateImages = () => {
     setImageError('');
     setLogoError('');
-    if (imageFiles.length === 0) setImageError('Please choose some screenshots');
-    else if (!logoFile) setLogoError('Please choose product logo');
+    // if (imageFiles.length === 0) setImageError('Please choose some screenshots');
+    if (!logoFile) setLogoError('Please choose product logo');
     else return true;
   };
 
@@ -138,13 +138,14 @@ export default () => {
   };
 
   const onSubmit: SubmitHandler<Inputs> = async data => {
-    console.log("Submitting");
     if (validateImages() && (await validateToolName())) {
-      const { tool_name, tool_website, tool_description, slogan, pricing_type, github_repo, demo_video, week } = data;
+      const { tool_name, tool_website, slogan, github_repo, week } = data;
       const categoryIds = categories.map(item => item.id);
       setLaunching(true);
-      const weeks = await productService.getWeeks(new Date().getFullYear(), 2);
-      const weekData = weeks.find(i => i.week === parseInt(week));
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      // const weeks = await productService.getWeeks(new Date().getFullYear(), 2);
+      // const weekData = weeks.find(i => i.week === parseInt(week));
       await productService
         .insert(
           {
@@ -152,7 +153,7 @@ export default () => {
             name: tool_name,
             demo_url: tool_website,
             github_url: github_repo,
-            pricing_type,
+            pricing_type: 1,
             slogan,
             description: slogan,
             logo_url: logoPreview,
@@ -161,11 +162,11 @@ export default () => {
             is_draft: false,
             comments_count: 0,
             votes_count: 0,
-            demo_video_url: demo_video,
-            launch_date: weekData?.startDate as string,
-            launch_start: weekData?.startDate,
-            launch_end: weekData?.endDate,
-            week: parseInt(week),
+            // demo_video_url: demo_video,
+            launch_date: tomorrow.toISOString(),
+            launch_start: tomorrow.toISOString(),
+            launch_end: tomorrow.toISOString(),
+            // week: parseInt(week),
           },
           categoryIds,
         )

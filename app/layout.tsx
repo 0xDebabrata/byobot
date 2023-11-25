@@ -110,7 +110,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <SupabaseListener serverAccessToken={session?.access_token} />
             <Banner />
             <Navbar />
-            <ModalBannerCodeClient />
+            {/* <ModalBannerCodeClient /> */}
             {children}
             {/* <ProgressBarClient /> */}
             {/* <Footer /> */}
