@@ -60,7 +60,7 @@ export default function Home() {
     return (
       <>
         <h2 className='text-2xl text-slate-900 font-medium'>
-          This week's GPTs
+          Latest bots
         </h2>
         <ul className="mt-3">
           {products.map((product, idx) => (
