@@ -154,7 +154,7 @@ export default () => {
           {
             asset_urls: imagePreviews,
             name: tool_name,
-            demo_url: tool_website,
+            demo_url: tool_website.endsWith('/') ? tool_website.substring(0, tool_website.length - 1) : tool_website,
             github_url: github_repo,
             pricing_type: 1,
             slogan,

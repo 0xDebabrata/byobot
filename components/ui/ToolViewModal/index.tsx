@@ -1,6 +1,6 @@
 'use client';
 
-import { IconVote, IconChartBar, IconArrowTopRight, IconFire, IconLoading, IconArrowLongLeft } from '@/components/Icons';
+import { IconVote, IconChartBar, IconClipboard, IconArrowTopRight, IconFire, IconLoading, IconArrowLongLeft } from '@/components/Icons';
 import ButtonUpvote from '@/components/ui/ButtonUpvote';
 import { Gallery, GalleryImage } from '@/components/ui/Gallery';
 import LinkShiny from '@/components/ui/LinkShiny';
@@ -37,6 +37,7 @@ export default ({ href, tool, close }: { href: string; tool: ProductType; close:
   const supabaseBrowserClient = createBrowserClient();
 
   const router = useRouter();
+  const [btnText, setBtnText] = useState("Copy API");
   const [comments, setComments] = useState([]);
   const [owner, setOwner] = useState<Profile>();
   const [weekRank, setWeekRank] = useState<string>('');
@@ -105,6 +106,12 @@ export default ({ href, tool, close }: { href: string; tool: ProductType; close:
     },
   ];
 
+  const copyText = async (text: string) => {
+    await navigator.clipboard.writeText(text);
+    setBtnText('Copied!');
+    setTimeout(() => setBtnText('Copy API'), 2000);
+  };
+
   return (
     <>
       <Modal
@@ -131,15 +138,26 @@ export default ({ href, tool, close }: { href: string; tool: ProductType; close:
             </div>
             <h1 className="mt-3 text-slate-800 font-medium">{tool?.name}</h1>
             <Title className="mt-1">{tool?.slogan}</Title>
+
+            <div className='mt-5 flex items-center space-x-2'>
+              <label className='text-sm text-slate-500 pr-2'>
+                Server
+              </label>
+              <pre className='text-sm bg-slate-200 px-2 py-0.5 text-slate-600 rounded-0 inline-block'>
+                {tool?.demo_url}
+              </pre>
+              <div onClick={() => copyText(tool?.demo_url)} className='cursor-pointer'>
+                <IconClipboard />
+              </div>
+            </div>
             <div className="text-sm mt-3 flex items-center gap-x-3">
-              <LinkShiny
-                href={handleURLQuery(addHttpsToUrl(tool?.demo_url as string))}
-                target="_blank"
-                className="flex items-center gap-x-2"
+              <div
+                onClick={() => copyText(tool?.api_spec)}
+                className="px-4 py-2.5 bg-slate-800 text-white rounded flex items-center gap-x-2 cursor-pointer"
               >
-                Live preview
-                <IconArrowTopRight />
-              </LinkShiny>
+                {btnText}
+                <IconClipboard />
+              </div>
               <ButtonUpvote
                 productId={tool?.id}
                 count={tool?.votes_count}

@@ -55,14 +55,6 @@ export default async function ToolPage({ slug }: { slug: string }): Promise<JSX.
       name: 'Comments',
       hash: '#comments',
     },
-    {
-      name: 'Launch details',
-      hash: '#details',
-    },
-    {
-      name: 'Related launches',
-      hash: '#launches',
-    },
   ];
 
   const stats = [
@@ -94,7 +86,6 @@ export default async function ToolPage({ slug }: { slug: string }): Promise<JSX.
       <div className="container-custom-screen" id="about">
         <div className="flex items-center justify-between">
           <ProductLogo src={product?.logo_url} alt={product?.slogan as string} />
-          <WinnerBadge weekRank={weekAward?.rank} isLaunchEnd={isLaunchEnd} />
         </div>
         <h1 className="mt-3 text-slate-100 font-medium">{product?.name}</h1>
         <Title className="mt-1">{product?.slogan}</Title>
@@ -171,26 +162,6 @@ export default async function ToolPage({ slug }: { slug: string }): Promise<JSX.
             {isLaunchStarted ? 'in ' : 'Will be launched in '}
             {customDateFromNow(product.launch_date)}.
           </p>
-          {isLaunchStarted ? (
-            <div className="mt-10">
-              <StatsWrapper>
-                {stats.map((item, idx) => (
-                  <Stat key={idx} className="py-4">
-                    <StatCountItem>{item.count}</StatCountItem>
-                    <StatItem className="mt-2">
-                      {item.icon}
-                      {item.label}
-                    </StatItem>
-                  </Stat>
-                ))}
-              </StatsWrapper>
-            </div>
-          ) : null}
-        </div>
-        <div className="container-custom-screen" id="launches">
-          <h3 className="text-slate-50 font-medium">Trending launches</h3>
-          <TrendingToolsList />
-        </div>
       </div>
     </section>
   );
