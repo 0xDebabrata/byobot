@@ -144,9 +144,9 @@ export default () => {
                   </button>
                 </li>
                 <li className="hidden w-px h-6 bg-slate-700 md:block"></li> */}
-                <Link href="/account/gpts/new">
+                <Link href="/account/bots/new">
                   <li className='px-3 py-2 rounded bg-slate-800 text-white'>
-                    Submit a GPT
+                    Submit a bot
                   </li>
                 </Link>
                 <li className={`space-y-3 items-center gap-x-6 md:flex md:space-y-0 ${isLoggedin ? 'hidden md:flex' : ''}`}>

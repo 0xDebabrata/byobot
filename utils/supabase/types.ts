@@ -332,6 +332,8 @@ export interface Database {
           views_count: number;
           votes_count: number;
           week: number | null;
+          api_spec: string;
+          api_type: 'yaml' | 'json';
         };
         Insert: {
           asset_urls?: string[] | null;

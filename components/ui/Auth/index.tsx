@@ -104,7 +104,7 @@ export default function Auth({ onLogout }: { onLogout?: () => Promise<void> }) {
             <h1 className="text-slate-600 text-lg">Log in to your account</h1>
           </div>
           <GithubProvider isLoad={isGithubAuthLoad} onClick={handleGitHubLogin} className="w-full justify-center mt-4" />
-          <GoogleProvider isLoad={isGoogleAuthLoad} onClick={handleGoogleLogin} className="w-full justify-center mt-2" />
+          {/* <GoogleProvider isLoad={isGoogleAuthLoad} onClick={handleGoogleLogin} className="w-full justify-center mt-2" /> */}
         </div>
       </Modal>
     </div>

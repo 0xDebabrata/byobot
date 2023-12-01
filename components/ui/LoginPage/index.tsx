@@ -52,7 +52,7 @@ export default () => {
             </p>
           </div>
           <GithubProvider isLoad={isGithubAuthLoad} onClick={handleGithubLogin} />
-          <GoogleProvider isLoad={isGoogleAuthLoad} onClick={handleGoogleLogin} />
+          {/* <GoogleProvider isLoad={isGoogleAuthLoad} onClick={handleGoogleLogin} /> */}
         </div>
       </div>
     </section>

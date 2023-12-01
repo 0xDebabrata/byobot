@@ -26,6 +26,7 @@ import axios from 'axios';
 import ProfileService from '@/utils/supabase/services/profile';
 import { usermaven } from '@/utils/usermaven';
 import Alert from '@/components/ui/Alert';
+import CodeInput from '@/components/ui/CodeInput';
 
 interface Inputs {
   tool_name: string;
@@ -77,6 +78,8 @@ export default () => {
   const [isLogoLoad, setLogoLoad] = useState<boolean>(false);
   const [isImagesLoad, setImagesLoad] = useState<boolean>(false);
   const [isLaunching, setLaunching] = useState<boolean>(false);
+
+  const [apiType, setApiType] = useState<'yaml' | 'json'>('json');
 
   useEffect(() => {
     pricingTypesList.then(types => {
@@ -139,7 +142,7 @@ export default () => {
 
   const onSubmit: SubmitHandler<Inputs> = async data => {
     if (validateImages() && (await validateToolName())) {
-      const { tool_name, tool_website, slogan, github_repo, week } = data;
+      const { tool_name, tool_website, slogan, github_repo, week, spec } = data;
       const categoryIds = categories.map(item => item.id);
       setLaunching(true);
       const tomorrow = new Date();
@@ -167,6 +170,8 @@ export default () => {
             launch_start: tomorrow.toISOString(),
             launch_end: tomorrow.toISOString(),
             // week: parseInt(week),
+            api_spec: spec,
+            api_type: apiType,
           },
           categoryIds,
         )
@@ -189,11 +194,11 @@ export default () => {
   return (
     <section className="container-custom-screen">
       {/* <Alert context="Any non-dev tools will be subject to removal. Please ensure that your submission is relevant to the developer community." /> */}
-      <h1 className="text-xl text-slate-800 font-semibold mt-6">Submit a GPT</h1>
+      <h1 className="text-xl text-slate-800 font-semibold mt-6">Submit a bot</h1>
       <div className="mt-12">
         <FormLaunchWrapper onSubmit={handleSubmit(onSubmit as () => void)}>
           <FormLaunchSection
-            title="Tell us about your GPT"
+            title="Tell us about your bot"
             description=""
           >
             <div>
@@ -219,15 +224,36 @@ export default () => {
               <LabelError className="mt-2">{errors.slogan && 'Please enter a description.'}</LabelError>
             </div>
             <div>
-              <Label>URL</Label>
+              <Label>Server URL</Label>
               <Input
-                placeholder="https://example.com/"
+                placeholder="https://api.example.com"
                 className="w-full mt-2"
                 validate={{
                   ...register('tool_website', { required: true, pattern: /^(https?:\/\/)?([a-z0-9-]+\.)+[a-z]{2,}(\/.*)*$/i }),
                 }}
               />
               <LabelError className="mt-2">{errors.tool_website && 'Please enter a URL'}</LabelError>
+            </div>
+            <div>
+              <Label>API Specification</Label>
+              <CodeInput
+                className="text-sm w-full mt-2 rounded border border-slate-600 p-2 bg-slate-800/10 hover:bg-white focus:outline-none focus:bg-white duration-150"
+                validate={{
+                  ...register('spec', { required: true }),
+                }}
+              />
+              <LabelError className="mt-2">{errors.tool_website && 'Please enter an API spec'}</LabelError>
+              <div className='flex space-x-4'>
+                {['json', 'yaml'].map((type, idx) => (
+                  <div
+                    key={idx}
+                    className={`${apiType === type ? 'bg-orange-400 text-white' : 'border border-slate-600'} text-sm py-1 px-1.5 rounded cursor-pointer`}
+                    onClick={() => { setApiType(type as 'json' | 'yaml'); }}
+                  >
+                    {type.toUpperCase()}
+                  </div>
+                ))}
+              </div>
             </div>
             <div>
               <Label>GitHub repo URL (optional)</Label>
@@ -353,7 +379,6 @@ export default () => {
             </div>
           </FormLaunchSection>
           */}
-
         </FormLaunchWrapper>
       </div>
     </section>
