@@ -21,6 +21,7 @@ import { type File } from 'buffer';
 import { type ChangeEvent, useEffect, useState } from 'react';
 import { useForm, type SubmitHandler, Controller } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
+import { parse, stringify } from 'yaml';
 import SelectLaunchDate from '@/components/ui/SelectLaunchDate';
 import axios from 'axios';
 import ProfileService from '@/utils/supabase/services/profile';
@@ -30,11 +31,11 @@ import CodeInput from '@/components/ui/CodeInput';
 
 interface Inputs {
   tool_name: string;
-  tool_website: string;
+  server_host: string;
   tool_description: string;
   slogan: string;
   pricing_type: number;
-  github_repo: string;
+  docs: string;
   demo_video: string;
   week: number;
   launch_date: Date;
@@ -140,22 +141,53 @@ export default () => {
     } else return true;
   };
 
+  const addServersKey = (api: string, apiType: 'yaml' | 'json', host: string) => {
+    if (apiType === 'json') {
+      const jsonSpec = JSON.parse(api);
+      if (!jsonSpec.servers) {
+        // Add servers field
+        jsonSpec.servers = [
+          {
+            url: host
+          }
+        ];
+      }
+      return JSON.stringify(jsonSpec);
+    } else {
+      const yamlSpec = parse(api);
+      if (!yamlSpec.servers) {
+        // Add servers field
+        yamlSpec.servers = [
+          {
+            url: host
+          }
+        ];
+      }
+      return stringify(yamlSpec);
+    }
+  };
+
   const onSubmit: SubmitHandler<Inputs> = async data => {
     if (validateImages() && (await validateToolName())) {
-      const { tool_name, tool_website, slogan, github_repo, week, spec } = data;
+      const { tool_name, server_host, slogan, docs, week, spec } = data;
       const categoryIds = categories.map(item => item.id);
       setLaunching(true);
       const tomorrow = new Date();
       tomorrow.setDate(tomorrow.getDate() + 1);
       // const weeks = await productService.getWeeks(new Date().getFullYear(), 2);
       // const weekData = weeks.find(i => i.week === parseInt(week));
+      //
+      const hostWithoutEndingForwardSlash = server_host.endsWith('/')
+        ? server_host.substring(0, server_host.length - 1)
+        : server_host;
+
       await productService
         .insert(
           {
             asset_urls: imagePreviews,
             name: tool_name,
-            demo_url: tool_website.endsWith('/') ? tool_website.substring(0, tool_website.length - 1) : tool_website,
-            github_url: github_repo,
+            demo_url: hostWithoutEndingForwardSlash,
+            github_url: docs,
             pricing_type: 1,
             slogan,
             description: slogan,
@@ -170,7 +202,7 @@ export default () => {
             launch_start: tomorrow.toISOString(),
             launch_end: tomorrow.toISOString(),
             // week: parseInt(week),
-            api_spec: spec,
+            api_spec: addServersKey(spec, apiType, hostWithoutEndingForwardSlash),
             api_type: apiType,
           },
           categoryIds,
@@ -229,10 +261,10 @@ export default () => {
                 placeholder="https://api.example.com"
                 className="w-full mt-2"
                 validate={{
-                  ...register('tool_website', { required: true, pattern: /^(https?:\/\/)?([a-z0-9-]+\.)+[a-z]{2,}(\/.*)*$/i }),
+                  ...register('server_host', { required: true, pattern: /^(https?:\/\/)?([a-z0-9-]+\.)+[a-z]{2,}(\/.*)*$/i }),
                 }}
               />
-              <LabelError className="mt-2">{errors.tool_website && 'Please enter a URL'}</LabelError>
+              <LabelError className="mt-2">{errors.server_host && 'Please enter a URL'}</LabelError>
             </div>
             <div>
               <Label>API Specification</Label>
@@ -242,7 +274,7 @@ export default () => {
                   ...register('spec', { required: true }),
                 }}
               />
-              <LabelError className="mt-2">{errors.tool_website && 'Please enter an API spec'}</LabelError>
+              <LabelError className="mt-2">{errors.spec && 'Please enter an API spec'}</LabelError>
               <div className='flex space-x-4'>
                 {['json', 'yaml'].map((type, idx) => (
                   <div
@@ -256,12 +288,12 @@ export default () => {
               </div>
             </div>
             <div>
-              <Label>GitHub repo URL (optional)</Label>
+              <Label>Documentation URL (optional)</Label>
               <Input
-                placeholder="https://github.com/openai/gpt"
+                placeholder="https://example.com/docs"
                 className="w-full mt-2"
                 validate={{
-                  ...register('github_repo', { required: false, pattern: /^(https?:\/\/)?([a-z0-9-]+\.)+[a-z]{2,}(\/.*)*$/i }),
+                  ...register('docs', { required: false, pattern: /^(https?:\/\/)?([a-z0-9-]+\.)+[a-z]{2,}(\/.*)*$/i }),
                 }}
               />
               <LabelError className="mt-2">{errors.github_repo && 'Please enter a valid github repo url'}</LabelError>
