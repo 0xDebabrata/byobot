@@ -23,8 +23,8 @@ export default class ProductsService extends BaseDbService {
     });
   }
 
-  async getThisWeeksGPTs() {
-    const { data, error } = await this.supabase.rpc('get_this_weeks_gpts');
+  async getAllBots() {
+    const { data, error } = await this.supabase.from('products').select('*').eq("deleted", false);
     if (error !== null) throw new Error(error.message);
     return data;
   }

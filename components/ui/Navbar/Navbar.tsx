@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Brand from '../Brand';
 import Link from 'next/link';
 import ButtonMenu from './ButtonMenu';
 import Auth from '../Auth';
@@ -14,9 +13,6 @@ import { createBrowserClient } from '@/utils/supabase/browser';
 import ProductsService from '@/utils/supabase/services/products';
 import { type Product } from '@/utils/supabase/types';
 import { IconSearch } from '@/components/Icons';
-import * as NavigationMenu from '@radix-ui/react-navigation-menu';
-import categories from '@/utils/categories';
-import { ChevronDownIcon } from '@heroicons/react/24/solid';
 
 export default () => {
   const [isActive, setActive] = useState(false);
@@ -80,46 +76,6 @@ export default () => {
           <div className={`flex-1 md:static  ${isActive ? 'w-full fixed top-20 inset-x-0 px-4 md:px-0' : 'hidden md:block'}`}>
             <div className="p-4 px-4 mt-8 text-sm bg-slate-900 rounded-lg md:block md:mt-0 md:p-0 md:bg-transparent">
               <ul className="justify-end items-center space-y-6 text-slate-400 md:flex md:space-x-6 md:space-y-0">
-                {/* <li>
-                  <NavigationMenu.Root>
-                    <NavigationMenu.List className="">
-                      <NavigationMenu.Item>
-                        <NavigationMenu.Trigger className="flex items-center gap-x-2 hover:text-slate-200 group">
-                          Browse tools
-                          <ChevronDownIcon className="w-4 h-4 transition-transform duration-[250] ease-in group-data-[state=open]:-rotate-180" />
-                        </NavigationMenu.Trigger>
-                        <NavigationMenu.Content className="top-8 left-0 text-sm py-4 rounded-lg w-80 md:px-4 md:bg-slate-800 md:absolute">
-                          <div className="space-y-4">
-                            <ul className="mt-2 space-y-3">
-                              {submenu.map((item, idx) => {
-                                return (
-                                  <li key={idx} className="hover:text-slate-200 duration-150">
-                                    <Link href={`${item.path}`} className="block">
-                                      {item.title}
-                                    </Link>
-                                  </li>
-                                );
-                              })}
-                            </ul>
-                            <h3 className="text-[0.855rem] font-medium text-slate-300">Categories</h3>
-                            <ul className="mt-2 gap-y-3 grid grid-cols-2">
-                              {categories.map((item, idx) => {
-                                return (
-                                  <li key={idx} className="hover:text-slate-200 duration-150">
-                                    <Link href={`/tools/${item.toLowerCase().replaceAll(' ', '-')}`} className="block">
-                                      {item}
-                                    </Link>
-                                  </li>
-                                );
-                              })}
-                            </ul>
-                          </div>
-                        </NavigationMenu.Content>
-                      </NavigationMenu.Item>
-                    </NavigationMenu.List>
-                  </NavigationMenu.Root>
-                </li>
-                */}
                 {navigation.map((item, idx) => {
                   return (
                     <li key={idx} className="hover:text-slate-400 text-slate-700 px-4">
@@ -129,15 +85,8 @@ export default () => {
                     </li>
                   );
                 })}
-                {/*
-                <li className="hidden md:block">
-                  <button aria-label="Search button" onClick={() => setCommandActive(true)} className="hover:text-slate-200">
-                    <IconSearch />
-                  </button>
-                </li>
-                <li className="hidden w-px h-6 bg-slate-700 md:block"></li> */}
                 <Link href="/account/bots/new">
-                  <li className='px-3 py-2 rounded bg-slate-800 text-white'>
+                  <li className='px-3 py-2.5 rounded bg-slate-800 text-white'>
                     Submit a bot
                   </li>
                 </Link>

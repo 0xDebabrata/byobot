@@ -20,7 +20,7 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       // const week = await productService.getWeekNumber(today, 2);
-      const weeklyWinners = await productService.getThisWeeksGPTs();
+      const weeklyWinners = await productService.getAllBots();
       setWeeklyWinners(weeklyWinners as any);
       setLoading(false);
     };
