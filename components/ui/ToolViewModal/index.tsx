@@ -180,7 +180,7 @@ export default ({ href, tool, close }: { href: string; tool: ProductType; close:
               <div className="absolute top-0 w-full h-[100px] opacity-40 bg-[linear-gradient(180deg,_rgba(124,_58,_237,_0.06)_0%,_rgba(72,_58,_237,_0)_100%)]"></div>
               <div className="relative container-custom-screen mt-12">
                 <div
-                  className="prose text-slate-100 whitespace-pre-wrap"
+                  className="prose text-slate-600 whitespace-pre-wrap"
                   // Use DOMPurify method for XSS sanitizeration
                   dangerouslySetInnerHTML={{ __html: tool?.description as string }}
                 ></div>
@@ -197,7 +197,7 @@ export default ({ href, tool, close }: { href: string; tool: ProductType; close:
                   ''
                 )}
               </div>
-              {tool?.asset_urls?.length && (
+              {tool?.asset_urls?.length ? (
                 <div
                   className={`max-w-screen-2xl ${tool?.asset_urls?.length === 1 ? 'container-custom-screen' : ''} mt-10 mx-auto sm:px-8`}
                 >
@@ -206,45 +206,10 @@ export default ({ href, tool, close }: { href: string; tool: ProductType; close:
                       tool?.asset_urls.map((item: string, idx: number) => <GalleryImage key={idx} src={item} alt={tool.name} />)}
                   </Gallery>
                 </div>
-              )}
+              ) : null}
             </div>
           </div>
           <CommentSection productId={tool?.owner_id as string} comments={comments as any} slug={tool?.slug} />
-          {/* Keep doing based on Product interface */}
-          {/*
-          <div className="container-custom-screen" id="details">
-            <h3 className="text-slate-50 font-medium">About this launch</h3>
-            <p className="text-slate-300 mt-6">
-              {tool?.name} {isLaunchStarted ? 'was hunted by' : 'by'}{' '}
-              <Link href={`/@${owner?.username}`} className="text-orange-500 hover:text-orange-400 duration-150">
-                {owner?.full_name}
-              </Link>{' '}
-              {isLaunchStarted ? 'in ' : 'Will be launched in '}
-              {customDateFromNow(tool?.launch_date)}.
-            </p>
-            {isLaunchStarted ? (
-              <div className="mt-10">
-                <StatsWrapper>
-                  {stats.map((item, idx) => (
-                    <Stat key={idx} className="py-4">
-                      <StatCountItem>{item.count}</StatCountItem>
-                      <StatItem className="mt-2">
-                        {item.icon}
-                        {item.label}
-                      </StatItem>
-                    </Stat>
-                  ))}
-                </StatsWrapper>
-              </div>
-            ) : null}
-          </div>
-          */}
-          {/*
-          <div className="container-custom-screen" id="launches">
-            <h3 className="text-slate-50 font-medium">Trending launches</h3>
-            <TrendingToolsList />
-          </div>
-          */}
         </div>
       </Modal>
     </>

@@ -119,7 +119,7 @@ export default async function ToolPage({ slug }: { slug: string }): Promise<JSX.
             <div className="absolute top-0 w-full h-[100px] opacity-40 bg-[linear-gradient(180deg,_rgba(124,_58,_237,_0.06)_0%,_rgba(72,_58,_237,_0)_100%)]"></div>
             <div className="relative container-custom-screen mt-12">
               <div
-                className="prose text-slate-100 whitespace-pre-wrap"
+                className="prose text-slate-500 whitespace-pre-wrap"
                 // Use DOMPurify method for XSS sanitizeration
                 dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(product?.description as string) }}
               ></div>
@@ -136,7 +136,7 @@ export default async function ToolPage({ slug }: { slug: string }): Promise<JSX.
                 ''
               )}
             </div>
-            {product?.asset_urls?.length && (
+            {product?.asset_urls?.length ? (
               <div
                 className={`max-w-screen-2xl ${product?.asset_urls?.length === 1 ? 'container-custom-screen' : ''} mt-10 mx-auto sm:px-8`}
               >
@@ -147,21 +147,10 @@ export default async function ToolPage({ slug }: { slug: string }): Promise<JSX.
                     ))}
                 </Gallery>
               </div>
-            )}
+            ) : null}
           </div>
         </div>
         <CommentSection productId={product.owner_id as string} comments={comments as any} slug={slug} />
-        {/* Keep doing based on Product interface */}
-        <div className="container-custom-screen" id="details">
-          <h3 className="text-slate-50 font-medium">About this launch</h3>
-          <p className="text-slate-300 mt-6">
-            {product.name} {isLaunchStarted ? 'was hunted by' : 'by'}{' '}
-            <Link href={`/@${owned?.username}`} className="text-orange-500 hover:text-orange-400 duration-150">
-              {owned?.full_name}
-            </Link>{' '}
-            {isLaunchStarted ? 'in ' : 'Will be launched in '}
-            {customDateFromNow(product.launch_date)}.
-          </p>
       </div>
     </section>
   );
