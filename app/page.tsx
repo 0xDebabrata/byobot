@@ -8,6 +8,7 @@ import { createBrowserClient } from '@/utils/supabase/browser';
 // import CountdownPanel from '@/components/ui/CountdownPanel';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 // import SkeletonToolCard from '@/components/ui/Skeletons/SkeletonToolCard';
 
 export default function Home() {
@@ -76,6 +77,14 @@ export default function Home() {
       {/* <h1 className='text-2xl text-slate-900 font-medium'>
         Trending GPTs
       </h1> */}
+      <div className='bg-white shadow-sm rounded p-5'>
+        <h1 className='text-2xl pb-2 font-semibold text-slate-900'>
+          Welcome to ByoBot 👋
+        </h1>
+        <p>
+          The place to share and discover ready-to-go APIs designed for extending LLMs. <Link href="/about" className='underline text-blue-500'>Learn more.</Link>
+        </p>
+      </div>
       <div className="mt-10 mb-12">
         {weekWinnerTools(weeklyWinners)}
       </div>
