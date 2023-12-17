@@ -43,17 +43,7 @@ export default () => {
   };
 
   const navigation = [
-//    { title: 'The Story', path: '/the-story' },
-    {
-      title: 'Submit your Dev Tool',
-      path: isLoggedin ? '/account/tools' : '/login',
-      className: 'bg-orange-500 hover:bg-orange-600 text-white text-center rounded-lg px-3 p-2 duration-150 btnshake',
-    },
-  ];
-
-  const submenu = [
- //   { title: 'This Week', path: '/' },
- //   { title: 'Upcoming Tools', path: '/upcoming' },
+    { title: 'About', path: '/about' },
   ];
 
   const handleSearch = (value: string) => {
@@ -129,15 +119,17 @@ export default () => {
                     </NavigationMenu.List>
                   </NavigationMenu.Root>
                 </li>
+                */}
                 {navigation.map((item, idx) => {
                   return (
-                    <li key={idx} className="hover:text-slate-200">
-                      <Link href={item.path} className={`block ${item?.className || ''}`}>
+                    <li key={idx} className="hover:text-slate-400 text-slate-700 px-4">
+                      <Link href={item.path}>
                         {item.title}
                       </Link>
                     </li>
                   );
                 })}
+                {/*
                 <li className="hidden md:block">
                   <button aria-label="Search button" onClick={() => setCommandActive(true)} className="hover:text-slate-200">
                     <IconSearch />
