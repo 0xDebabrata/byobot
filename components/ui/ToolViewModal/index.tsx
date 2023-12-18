@@ -139,17 +139,6 @@ export default ({ href, tool, close }: { href: string; tool: ProductType; close:
             <h1 className="mt-3 text-slate-800 font-medium">{tool?.name}</h1>
             <Title className="mt-1">{tool?.slogan}</Title>
 
-            <div className='mt-5 flex items-center space-x-2'>
-              <label className='text-sm text-slate-500 pr-2'>
-                Server
-              </label>
-              <pre className='text-sm bg-slate-200 px-2 py-0.5 text-slate-600 rounded-0 inline-block'>
-                {tool?.demo_url}
-              </pre>
-              <div onClick={() => copyText(tool?.demo_url)} className='cursor-pointer'>
-                <IconClipboard />
-              </div>
-            </div>
             <div className="text-sm mt-3 flex items-center gap-x-3">
               <div
                 onClick={() => copyText(tool?.api_spec)}
